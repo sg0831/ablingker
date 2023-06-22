@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import styled from 'styled-components'
+import styled from 'styled-components';
 import { LoginStyle } from '../css/loginStyle'
 import useFetch from "../hooks/useFetch";
 import { useNavigate } from 'react-router-dom';
