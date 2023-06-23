@@ -15,8 +15,7 @@ body {
 /* login container css */
 .login-container {
     text-align: center;
-    width: 300px;
-    padding: 20px;
+    margin-top: 50px;
 }
 
 
