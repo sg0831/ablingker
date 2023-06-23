@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components'
 import { LoginStyle } from '../css/loginStyle'
 import useFetch from "../hooks/useFetch";
 import { useNavigate } from 'react-router-dom';
@@ -78,15 +78,28 @@ export default function Login() {
 
   return (
     <LoginStyle>
-      <div className="login-container">
-        <form>
-          <label htmlFor="phone-number" >아이디(전화번호)</label>
-          <input type="tel" id="phone-number" name="phone-number" onChange={inputIdPwd} className='id'></input>
-          <label htmlFor="password">비밀번호</label>
-          <input type="password" id="password" name="password" onChange={inputIdPwd} className='password'></input>
-          <button type="button" onClick={handleLogin} style={{ opacity: isLoading ? 0.3 : 1 }}>{isLoading ? "로그인중..." : "로그인"}</button>
-        </form>
-      </div>
+        <div className="login-container">
+            <div className = "logo">에이블링커</div>
+            <div className = "input-login-info">
+                <input type="tel" placeholder="휴대전화번호" className='id' onChange={inputIdPwd} required/>
+                <input type="password" placeholder="비밀번호 입력" className='pwd' onChange={inputIdPwd} required/>
+            </div>
+            <div className = "wrong-password">*비밀번호를 확인해주세요.</div>
+            <div className = "login-btn">
+                <button type="submit" onClick={handleLogin}>로그인</button>
+                <div>
+                    <input type="checkbox" id="auto-login"/>
+                    <label htmlFor="auto-login"></label>
+                    <span className="on"></span>
+                    <div>자동로그인</div>
+                </div>
+            </div>
+            <div className = "register">
+                <a href="#">비밀번호 찾기 /</a>
+                <a href="#">간편로그인 /</a>
+                <a href="#">회원가입</a>
+            </div>
+        </div> 
     </LoginStyle>
   );
 }
