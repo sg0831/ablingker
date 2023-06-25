@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import styled, { DefaultTheme, StyledComponent } from 'styled-components'
 import Login from './component/login'
+import Register from './component/register';
+import Register1 from './component/register1';
 import Helper from './component/helper'
 import Employer from './component/employer'
 import Go from './component/searchBar'
@@ -19,6 +21,12 @@ export default function App() {
         </Routes>
         <Routes>
           <Route path='login' element={<Login/>}></Route>
+        </Routes>
+        <Routes>
+          <Route path='register' element={<Register/>}></Route>
+        </Routes>
+        <Routes>
+          <Route path='register1' element={<Register1/>}></Route>
         </Routes>
         <Routes>
           <Route path='helper' element={<Helper/>}></Route>
