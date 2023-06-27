@@ -42,17 +42,28 @@ export default function Register() {
     }
   }
 
-  function moveToPage(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
+  function moveToPage(event: React.MouseEvent<HTMLAnchorElement|HTMLButtonElement, MouseEvent>) {
+    event.preventDefault();
     const target = event.currentTarget;
     // 이용약관 관련 이동 페이지 추후 채워넣을 예정
     if (target.classList.contains("termsOfService")) {
+      setTermsOfServiceCheck(true);
       navigate("");
     } else if (target.classList.contains("privacyPolicy")) {
+      setPrivacyPolicyCheck(true);
       navigate("");
     } else if (target.classList.contains("locationTerms")) {
+      setLocationTermsCheck(true);
       navigate("");
     } else if (target.classList.contains("Terms")) {
+      setTermsCheck(true);
       navigate("");
+    } else if (target.classList.contains("nextBtn")){
+      if(isAllCheck){
+        navigate("/register1");
+      } else {
+        window.alert("전부 동의하셔야 회원가입을 할 수 있습니다.")
+      }
     }
   }
 
@@ -146,7 +157,7 @@ export default function Register() {
             <div>체크 필수</div>
           </div>
           <div className="next">
-            <button style={{ opacity: isAllCheck ? 1 : 0.3 }}>다음</button>
+            <button className="nextBtn" onClick={moveToPage} style={{ opacity: isAllCheck ? 1 : 0.3 }}>다음</button>
           </div>
         </div>
       </div>
