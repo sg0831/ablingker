@@ -13,17 +13,35 @@ export default function Register1(){
     const [isAu, setIsAu] = useState(false);
     const [isPwdMatch, setIsPwdMatch] = useState(false);
     const [isAuRequest, setIsAuRequest] = useState(false);
-    const [gender, setGender] = useState("male");
     const [checkUser, setCheckUser] = useState("");
     const [isUserInputFull,setIsUserInputFull] = useState(false);
+    const [checkpwd, setCheckpwd] = useState("");
     //사용자의 개인정보
     const [isClient,setIsClient] = useState(true);
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [pwd, setPwd] = useState("");
-    const [checkpwd, setCheckpwd] = useState("");
     const [birthday, setBirthday] = useState("");
+    const [gender, setGender] = useState("male");
 
+    //비밀번호 8자리 이상인지
+    const [isPwdOver, setIsPwdOver] = useState(false);
+
+    const navigate = useNavigate();
+
+    //비밀번호 검사기
+    useEffect(() => {
+        if(pwd.length > 7){
+          setIsPwdOver(true);
+        } else {
+          setIsPwdOver(false);
+        }
+        if (pwd === checkpwd) {
+          setIsPwdMatch(true);
+        } else {
+          setIsPwdMatch(false);
+        }
+      }, [pwd, checkpwd]);
 
     //사용자 유형 버튼 색상 바꾸기
     function changeCliBackground(event:React.MouseEvent<HTMLButtonElement, MouseEvent>){
@@ -73,8 +91,13 @@ export default function Register1(){
             "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                //서버에서 보내는 비밀번호 키값 : 변수
+                //전화번호 키값 : 변수
             }),
+            })
+            .then(res => res.json())
+            .then(data => {
+                const userCheckNum = data.data;
+                setUserCheckNum(userCheckNum);
             })
             .catch(error => {
                 window.alert("서버에 요청하는데 실패했습니다.");
@@ -105,8 +128,7 @@ export default function Register1(){
           setCheckUser(target.value);
         }
         if (
-          name !== "" && phone !== "" && pwd !== "" && birthday !== "" &&
-          checkpwd !== "" && checkUser !== ""
+          name !== "" && isAu && isPwdMatch && isValidDate(birthday)
         ) {
           setIsUserInputFull(true);
         } else {
@@ -115,11 +137,35 @@ export default function Register1(){
       }
 
     function checkUserBtn(){
-        
+        if(userCheckNum == checkUser && userCheckNum.length != 0){
+            setIsAu(true);
+        } else{
+            window.alert("인증번호를 확인해주세요.")
+            setIsAu(false);
+        }
     }
 
     function nextPage(){
-        
+        if(isUserInputFull){
+            fetch(`http://localhost:8080/api/login?password=1234&userId=test1`, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    //서버로 보낼 개인정보
+                    //개인정보 종류
+                    //isClient, name, phone, pwd, birthday, gender
+                }),
+              })
+            .catch(error => {
+                window.alert("서버에 정보를 전송하는데 실패했습니다.");
+            })
+            .finally(() => {
+            })
+        } else{
+            window.alert('회원가입 정보를 다시 한 번 확인해주세요.')
+        }
     }
       
       
@@ -164,7 +210,7 @@ export default function Register1(){
                             <div>
                                 <input onChange={inputUserInfo} className='userPwd' type="password" placeholder="비밀번호 8자리 이상"/>
                                 <input onChange={inputUserInfo} className='checkUserPwd'type="password" placeholder="비밀번호 확인"/>
-                                <div style={{opacity:isPwdMatch?1:0}}>*비밀번호가 일치하지 않습니다.</div>
+                                <div>{isPwdOver?isPwdMatch?"":"*비밀번호가 일치하지 않습니다.":"*비밀번호는 8자리 이상이어야 합니다."}</div>
                             </div>
                         </div>
                     </div>
