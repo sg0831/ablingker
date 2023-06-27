@@ -49,12 +49,15 @@ export default function Register() {
     if (target.classList.contains("termsOfService")) {
       setTermsOfServiceCheck(true);
       navigate("");
+      setTermsOfServiceCheck(true);
     } else if (target.classList.contains("privacyPolicy")) {
       setPrivacyPolicyCheck(true);
       navigate("");
+      setPrivacyPolicyCheck(true);
     } else if (target.classList.contains("locationTerms")) {
       setLocationTermsCheck(true);
       navigate("");
+      setLocationTermsCheck(true);
     } else if (target.classList.contains("Terms")) {
       setTermsCheck(true);
       navigate("");

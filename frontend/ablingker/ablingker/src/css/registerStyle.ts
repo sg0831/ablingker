@@ -79,6 +79,7 @@ export const RegisterStyle = styled.div`
 
 .see-announcement > a {
     margin-bottom: 30px;
+    text-decoration: none;
 }
 
 /* 위치정보 */

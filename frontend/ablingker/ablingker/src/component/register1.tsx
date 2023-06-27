@@ -1,17 +1,23 @@
 import styled from 'styled-components'
 import { RegisterStyle1 } from '../css/registerStyle1';
 import React, { useState, useRef, useEffect } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 export default function Register1(){
-    const [isClient, setIsClient] = useState(true);
+    //인증번호
+    const [userCheckNum, setUserCheckNum] = useState("");
+    const [isUserCheckClick, setIsUserCheckClick] = useState(false);
+
+    //인증되었는지 안되었는지 & 비번 맞는지 & 인증요청 했는지 & input을 다 작성했는지
     const [isAu, setIsAu] = useState(false);
     const [isPwdMatch, setIsPwdMatch] = useState(false);
     const [isAuRequest, setIsAuRequest] = useState(false);
     const [gender, setGender] = useState("male");
     const [checkUser, setCheckUser] = useState("");
-    const [IsUserInputFull,setIsUserInputFull] = useState(false);
+    const [isUserInputFull,setIsUserInputFull] = useState(false);
     //사용자의 개인정보
+    const [isClient,setIsClient] = useState(true);
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [pwd, setPwd] = useState("");
@@ -111,6 +117,10 @@ export default function Register1(){
     function checkUserBtn(){
         
     }
+
+    function nextPage(){
+        
+    }
       
       
       
@@ -178,7 +188,7 @@ export default function Register1(){
                         </div>
                     </div>
                 </div>
-                <button className = "register">가입하기</button>
+                <button onClick={nextPage} style={{opacity:isUserInputFull?1:0.3}} className = "register">가입하기</button>
             </div>
         </RegisterStyle1>
     );
