@@ -12,6 +12,7 @@ import MatchingOk from './component/matchingOk';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import Client from './component/client';
 
 export default function App() {
   return (
@@ -27,6 +28,9 @@ export default function App() {
         </Routes>
         <Routes>
           <Route path='register1' element={<Register1/>}></Route>
+        </Routes>
+        <Routes>
+          <Route path='client' element={<Client/>}></Route>
         </Routes>
         <Routes>
           <Route path='helper' element={<Helper/>}></Route>
