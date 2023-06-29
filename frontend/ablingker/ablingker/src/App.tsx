@@ -7,6 +7,7 @@ import Helper from './component/helper'
 import Employer from './component/employer'
 import Go from './component/searchBar'
 import TimeSet from './component/timeSet'
+import Location from './component/location';
 import EmployerMatching from './component/employerMatching';
 import MatchingOk from './component/matchingOk';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -31,6 +32,9 @@ export default function App() {
         </Routes>
         <Routes>
           <Route path='client' element={<Client/>}></Route>
+        </Routes>
+        <Routes>
+          <Route path='setlocation' element={<Location/>}></Route>
         </Routes>
         <Routes>
           <Route path='helper' element={<Helper/>}></Route>

@@ -19,7 +19,7 @@ export default function Client(){
         } else if (target.classList.contains('bottom-tap-item5')){
             navigate('');   
         } else if (target.classList.contains('face-to-face')){
-            navigate('');
+            navigate('/setlocation');
         } else if (target.classList.contains('non-face-to-face')){
             window.alert('준비중입니다.')
         }
