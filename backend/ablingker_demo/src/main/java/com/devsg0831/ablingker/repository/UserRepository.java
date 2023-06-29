@@ -1,11 +1,9 @@
 package com.devsg0831.ablingker.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import com.devsg0831.ablingker.dto.User;
 
-@Repository
-public interface UserRepository extends JpaRepository<User, String> {
 
+public interface UserRepository extends JpaRepository<User, String> {
+	
 }
