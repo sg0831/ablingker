@@ -52,6 +52,6 @@ public class User {
 	// 자기소개
 	private String introduction;
 	
-	// 보유 골드
-	private int gold;
+	// 보유 포인트
+	private int point;
 }
