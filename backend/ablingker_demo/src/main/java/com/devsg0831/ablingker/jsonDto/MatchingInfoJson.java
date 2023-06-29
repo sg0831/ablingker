@@ -41,11 +41,8 @@ public class MatchingInfoJson {
 	@ JsonFormat (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss" , timezone = "Asia/Seoul" )
 	private LocalDateTime serviceEndTime;
 
-	// 클라이언트로부터 받은 골드 금액
-	private int goldFromClient;
-
-	// 서포터에게 전달된 골드 금액
-	private int goldToSupporter;
+	// 예상 지불 금액
+	private int esstimatedPoint;
 	
 	// 상세 요청사항
 	private String discription;
@@ -61,7 +58,6 @@ public class MatchingInfoJson {
 		this.clientUserId = matchingRecord.getClientUser().getUserId();
 		this.created = matchingRecord.getCreated();
 		this.discription = matchingRecord.getDiscription();
-		this.goldFromClient = matchingRecord.getGoldFromClient();
-		this.goldToSupporter = matchingRecord.getGoldToSupporter();
+		this.esstimatedPoint = matchingRecord.getEsstimatedPoint();
 	}
 }

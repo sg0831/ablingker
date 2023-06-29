@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -43,6 +44,7 @@ public class SecurityConfig {
 		http.authorizeHttpRequests()
 		.antMatchers("/api/login", "/api/logout", "/api/signUp", "/v3/api-docs/**" ,"/swagger-ui/**", "/swagger-resources/**").permitAll()
 		.antMatchers("/api/user/**").hasRole("USER")
+		.antMatchers(HttpMethod.POST, "/api/matching/moving").hasRole("CLIENT")
 		.antMatchers("/api/admin/**").hasRole("ADMIN")
 		.anyRequest().authenticated()
 		.and()

@@ -10,9 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.devsg0831.ablingker.dto.MatchingRecord;
+import com.devsg0831.ablingker.dto.MovingMatchingRecord;
 import com.devsg0831.ablingker.dto.User;
 import com.devsg0831.ablingker.jsonDto.MatchingInfoJson;
-import com.devsg0831.ablingker.jsonDto.MatchingRequestParams;
+import com.devsg0831.ablingker.jsonDto.MatchingResponseJson;
+import com.devsg0831.ablingker.jsonDto.MovingMatchingInfoJson;
+import com.devsg0831.ablingker.jsonDto.MovingMatchingRequestParams;
+import com.devsg0831.ablingker.service.MatchingPaymentService;
 import com.devsg0831.ablingker.service.MatchingService;
 import com.devsg0831.ablingker.service.UserAuthenticationService;
 
@@ -26,19 +30,35 @@ import lombok.RequiredArgsConstructor;
 public class MatchingController {
 
 	private final MatchingService matchingService;
+	private final MatchingPaymentService matchingPaymentService;
 	private final UserAuthenticationService userAuthenticationService;
 	
-	
-	@PostMapping("/")
-	public ResponseEntity<MatchingInfoJson> createMatching(@RequestBody MatchingRequestParams matchingRequestParams) {
-		MatchingRecord newMatchingRecord = matchingService.createMatchingRecord(matchingRequestParams);
-		if (newMatchingRecord != null) {
-			return new ResponseEntity<>( new MatchingInfoJson(newMatchingRecord), HttpStatus.CREATED);
+	private final MatchingResponseJson matchingResponseJson;
+
+
+	@ApiOperation(
+			value = "단순이동 매칭 요청",
+			notes = "새로운 단순이동 매칭 요청을 보냄")
+	@PostMapping("/moving")
+	public ResponseEntity<MatchingResponseJson> createMovingMatching(@RequestBody MovingMatchingRequestParams movingMatchingRequestParams) {
+		// 매칭 요청한 클라이언트가 예상 금액 만큼의 포인트를 소지했는지 확인
+		int esstimatedPoint = matchingPaymentService.getEsstimatedPointOfMovingMatching(movingMatchingRequestParams);
+		if ( matchingPaymentService.hasPoint(esstimatedPoint) ) {
+			MovingMatchingRecord newMovingMatchingRecord = matchingService.createMovingMatchingRecord(movingMatchingRequestParams, esstimatedPoint);
+			if (newMovingMatchingRecord != null) {
+				matchingResponseJson.setData( new MovingMatchingInfoJson(newMovingMatchingRecord) );
+				return new ResponseEntity<>(
+						matchingResponseJson, HttpStatus.CREATED);
+			}
+		} else {
+			// 잔여 포인트 부족이라는 메시지를 포함하여 프론트앤드로 전달
+			matchingResponseJson.setMessage("insufficient point");
 		}
-		return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
+
+		return new ResponseEntity<>(matchingResponseJson, HttpStatus.BAD_REQUEST );
 	}
-	
-	
+
+
 	@ApiOperation(
 			value = "특정 매칭 기록 정보 조회",
 			notes = "매칭 요청한 클라이언트 또는 매칭된 서포터 본인만 조회할 수 있음")
@@ -51,7 +71,7 @@ public class MatchingController {
 			String loginUserId = loginUser.getUserId();
 			User matchingClientUser = findMatchingRecord.getClientUser();
 			User matchingSupporterUser = findMatchingRecord.getSupporterUser();
-			
+
 			// 현재 로그인 된 유저가 요청한 매칭 정보의 클라이언트 또는 서포터와 동일한지 확인
 			if (matchingClientUser != null  &&  loginUserId .equals( matchingClientUser.getUserId() ) 
 					||  matchingSupporterUser != null  &&  loginUserId .equals(matchingSupporterUser.getUserId()) ) {

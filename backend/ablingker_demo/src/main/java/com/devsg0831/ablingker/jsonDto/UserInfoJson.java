@@ -38,7 +38,7 @@ public class UserInfoJson {
 	private String introduction;
 	
 	// 보유 골드
-	private int gold;
+	private int point;
 	
 	
 	public UserInfoJson(User user) {
@@ -49,7 +49,7 @@ public class UserInfoJson {
 		this.birthDate = user.getBirthDate();
 		this.createdDate = user.getCreatedDate();
 		this.isLogin = user.isLogin();
-		this.gold = user.getGold();
+		this.point = user.getPoint();
 		this.introduction = user.getIntroduction();
 	}
 

@@ -54,11 +54,11 @@ public class MatchingRecord {
 	// 서비스 종료 시간
 	private LocalDateTime serviceEndTime;
 
-	// 클라이언트로부터 받은 골드 금액
-	private int goldFromClient;
+	// 예상 금액
+	private int esstimatedPoint;
 
-	// 서포터에게 전달된 골드 금액
-	private int goldToSupporter;
+	// 실제 결제된 금액 
+	private int paymentPoint;
 	
 	// 상세 요청사항
 	private String discription;
