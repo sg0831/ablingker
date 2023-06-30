@@ -141,22 +141,36 @@ export default function TimeSet(){
 
     return(
         <TimeSetStyle>
-            <div className="container">
-                <select onChange={isToday} className="select-box">
-                    <option className="today" value="today">오늘</option>
-                    <option>내일</option>
-                </select>
-                <div onChange={valueOfHour} className="time-box">
-                    <div>시간</div>
-                    <input type="text" className="input-box" />
+            <div className="main-container">
+                <div className="top-nav">
+                    <button>&lt;</button>
+                    <div>시간설정</div>
                 </div>
-                <div onChange={valueOfMinute} className="time-box">
-                    <div>분</div>
-                    <input id="minutes" type="text" className="input-box" />
+                <div className="select-date">
+                    <div>날짜선택</div>
+                    <div className="isToday">
+                        <input type="radio" name="is-today" value="today" checked/>오늘
+                        <input type="radio" name="is-today" value="tomorrow"/>내일 (24시이후)
+                    </div>
+                    <div className="date">
+                        00월 00일 0요일
+                    </div>
                 </div>
-                <button className="submit-button"style={{
-                            opacity: isNull? 0.3:1,
-                        }} onClick={isInputNull} >{isNull?"시간과 분을 입력해 주세요...":"선택완료"}</button>
+                <div className="select-time">
+                    <div>시간선택</div>
+                    <div className="start-time">
+                        <div>서포트 시작 시간 선택</div>
+                        <input className="support-start" type="time"/>
+                    </div>
+                    <div className="end-time">
+                        <div>서포트 종료 시간 선택</div>
+                        <input className="support-end" type="time"/>
+                    </div>
+                </div>
+                <div className="popup-selectTime">
+
+                </div>
+                <button className="next">다음</button>
             </div>
         </TimeSetStyle>
     );

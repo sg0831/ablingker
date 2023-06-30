@@ -34,6 +34,9 @@ export default function App() {
           <Route path='client' element={<Client/>}></Route>
         </Routes>
         <Routes>
+          <Route path='timeSet' element={<TimeSet/>}></Route>
+        </Routes>
+        <Routes>
           <Route path='setlocation' element={<Location/>}></Route>
         </Routes>
         <Routes>
@@ -47,9 +50,6 @@ export default function App() {
         </Routes>
         <Routes>
           <Route path='arrive' element={<Go/>}></Route>
-        </Routes>
-        <Routes>
-          <Route path='timeSet' element={<TimeSet/>}></Route>
         </Routes>
         <Routes>
           <Route path='employerMatching' element={<EmployerMatching/>}></Route>
