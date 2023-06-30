@@ -1,141 +1,165 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TimeSetStyle } from "../css/timeSetStyle";
 import { useLocation, useNavigate } from "react-router-dom";
 
 
 export default function TimeSet(){
-    const [hour, SetHour] = useState("");
-    const [minute, Setminute] = useState("");
-    const [isNull, SetIsNull] = useState(true);
-    const [today, SetToDay] = useState("");
-    const nowHour = new Date().getHours();
-    const nowMinute = new Date().getMinutes();
+    //라디오 버튼 변수
+    const [today, SetToDay] = useState("today");
+
+    //월,일,요일 변수
+    const [year, setYear] = useState(new Date().getFullYear());
+    const [month, setMonth] = useState(new Date().getMonth()+1);
+    const [date, setDate] = useState(new Date().getDate());
+    const week = ['일','월','화','수','목','금','토'];
+    const [dayOfWeek, setDayOfWeek] = useState(week[new Date().getDay()]);
+
     const navigate = useNavigate();
-    const location = useLocation(); 
 
-    function valueOfHour(event:React.ChangeEvent<HTMLDivElement> ) {
-        const Hour = event.target as HTMLInputElement;
-        const value = Hour.value;
-        if(today === ""){
-            SetToDay("오늘");
-        }
-        if(today === "내일"){
-            if (parseInt(value) > 24){
-                alert("24시가 최대입니다.")
-                Hour.value = "";
-            } else if (isNaN(Number(value))){
-                alert("숫자만 입력 할 수 있습니다.")
-                Hour.value = "";
-            } else {
-                SetHour(value);
-            }
-        } else{
-            if (parseInt(value) > 24){
-                alert("24시가 최대입니다.")
-                Hour.value = "";
-                SetIsNull(true);
-            } else if (today === "오늘" && nowHour > parseInt(value) && value.length > 1) {
-                alert("현재 시간보다 이전입니다!")
-                Hour.value = "";
-                SetIsNull(true);
-            } else if (isNaN(Number(value))){
-                alert("숫자만 입력 할 수 있습니다.")
-                Hour.value = "";
-                SetIsNull(true);
-            } else if(nowHour < 10) {
-                SetHour(value);
-            } else if (value.length > 1){
-                SetHour(value);
-            }
-        }
+    function navigateFn(startTime:String, endTime:String){
+        window.alert(`입력하신 시간이 아래가 맞습니까?
+        서포트 시작 시간:${startTime}
+        서포트 종료 시간:${endTime}`)
+        navigate("",{state:{
+
+        }});
+
     }
-    function valueOfMinute(event:React.ChangeEvent<HTMLDivElement> ) {
-        const minute = event.target as HTMLInputElement;
-        const value = minute.value;
-        if (today === "") {
-            SetToDay("오늘");
+
+    //다음 눌렀을때 변수
+    function nextBtn(){
+        //시간 가져오기
+        const startEl = document.querySelector('.support-start') as HTMLInputElement;
+        const endEl = document.querySelector('.support-end') as HTMLInputElement;
+        const startTime = startEl.value;
+        const endTime = endEl.value;
+
+        //시 분으로 나누기
+        const [startHour, startMinute] = startTime.split(":");
+        const [endHour, endMinute] = startTime.split(":");
+
+        if(startTime === "" || endTime === ""){
+            window.alert("서포트 시간을 다시 확인해주세요.")
         }
-        if (today === '내일') {
-            if (parseInt(value) > 59){
-                alert("59분이 최대입니다.")
-                minute.value = "";
-                SetIsNull(true);
-            } else if (isNaN(Number(value))){
-                alert("숫자만 입력 할 수 있습니다.")
-                minute.value = "";
-            } else {
-                Setminute(value);
-                SetIsNull(false);
-            }
-        }
-        else{
-            if(hour == ""){
-                alert("시간을 먼저 입력하여 주십시오")
-                minute.value = "";
-            }
-            else{
-                if (parseInt(value) > 59){
-                    alert("59분이 최대입니다.")
-                    minute.value = "";
-                    SetIsNull(true);
-                }
-                else if (
-                    (parseInt(hour) === nowHour+1 && parseInt(value) < (nowMinute+30)%60 && value.length > 1)
-                    || (parseInt(hour) === nowHour+1 && parseInt(value) < (nowMinute+30)%60 && (nowMinute+30)%60 < 10)
-                     || (parseInt(hour) === nowHour && parseInt(value) < nowMinute+30 && value.length > 1
-                     || (parseInt(hour) === nowHour && parseInt(value) < nowMinute+30 && value.length > 1))
-                    ){
-                    alert("현재 시간으로부터 30분 이후에만 시간을 지정할 수 있습니다.")
-                    minute.value = "";
-                    SetIsNull(true);
-                } else if (isNaN(Number(value))){
-                    alert("숫자만 입력 할 수 있습니다.")
-                    minute.value = "";
-                    SetIsNull(true);
+        //내일인 경우
+        else if(today === "tomorrow"){            
+            //서포트 종료 시간이 시작시간과 같은 경우
+            if(parseInt(startHour) === parseInt(endHour)){
+                //종료시간 분이 더 길때
+                if(parseInt(startMinute) < parseInt(endMinute)){
+                    navigateFn(startTime,endTime)
                 } else{
-                    Setminute(value);
-                    SetIsNull(false);
+                    window.alert("서포트 시작 시간보다 서포트 종료 시간이 더 이전입니다.") 
+                }
+            }
+            //시작시간보다 종료시간이 더 긴 경우
+            else if(parseInt(startHour) < parseInt(endHour)){
+                navigateFn(startTime,endTime)
+            }
+            //시작시간보다 종료시간이 더 짧은 경우
+            else{
+                window.alert("서포트 시작 시간보다 서포트 종료 시간이 더 이전입니다.");
+            } 
+        } 
+        //오늘인 경우
+        else if (today === "today"){
+            //서포트 시작시간이 같은 경우
+            if(new Date().getHours() === parseInt(startHour)){
+                //현재 시간보다 30분 더 많은지
+                if(new Date().getMinutes()+30 < parseInt(startHour)){
+                    navigateFn(startTime,endTime)
+                }
+                //현재 시간보다 30분 적을 시
+                else{
+                    window.alert("서포트 시작 시간이 현재 시간에서 부터 30분 이후여야 합니다.")
+                }
+            }
+            //시작시간이 더 큰 경우
+            else if(new Date().getHours() < parseInt(startHour)){
+                //현재 시간보다 30분 더 많은지
+                if((new Date().getMinutes()+30)%60 < parseInt(startHour)){
+                    navigateFn(startTime,endTime)
+                }
+                //현재 시간보다 30분 적을 시
+                else{
+                    window.alert("서포트 시작 시간이 현재 시간에서 부터 30분 이후여야 합니다.")
+                }
+            }
+            //시작시간이 더 작은 경우
+            else{
+               window.alert("서포트 시작 시간이 현재 시간보다 이전입니다.") 
+            }
+
+            //서포트 종료 시간이 시작시간과 같은 경우
+            if(parseInt(startHour) === parseInt(endHour)){
+                //종료시간 분이 더 길때
+                if(parseInt(startMinute) < parseInt(endMinute)){
+                    navigateFn(startTime,endTime)
+                } else{
+                    window.alert("서포트 시작 시간보다 서포트 종료 시간이 더 이전입니다.") 
+                }
+            }
+            //시작시간보다 종료시간이 더 긴 경우
+            else if(parseInt(startHour) < parseInt(endHour)){
+                navigateFn(startTime,endTime)
+            }
+            //시작시간보다 종료시간이 더 짧은 경우
+            else{
+                window.alert("서포트 시작 시간보다 서포트 종료 시간이 더 이전입니다.");
+            } 
+        }
+    }
+
+    //해당 월의 최대 일수를 출력
+    function getMonthDay(year:number,month:number):number{
+        if(month == 4 || month == 6 || month == 9 || month == 11){
+            return 30
+        } else if (month == 2){
+            if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0){
+                return 29
+            } else {
+                return 28
+            }
+        } else {
+            return 31
+        }
+    }
+
+    // 날짜를 설정
+    function setDatefn(inputYear: number, inputMonth: number, isToday:boolean) {
+        //오늘 일때
+        if(isToday){
+            setMonth(new Date().getMonth()+1);
+            setDate(new Date().getDate());
+            setDayOfWeek(week[new Date().getDay()]);
+        }
+        //내일 일때
+        else{
+            //내일이 다음달인 경우
+            if(getMonthDay(inputYear,inputMonth) < date+1){
+                setMonth(((new Date().getMonth()+1)%12)+1);
+                setDate(1);
+                setDayOfWeek(week[((new Date().getDay())%6)+1]);
+            }
+            //아닌 경우
+            else{
+                //날짜가 오늘이랑 같으면
+                if(date === new Date().getDate()){
+                    setDate(date+1);
                 }
             }
         }
-        if(value.length > 1){
-            SetIsNull(false);
-        }
     }
+  
 
-    function isInputNull(){
-        if(!isNull){
-            const a = window.confirm(`
-                ${hour}시 ${minute}분 ${today} 로 예약 하시는 것이 맞으십니까?
-            `);
-            if(a){
-                navigate("/employer", {state:{
-                    hour : hour,
-                    minute : minute,
-                    today : today,
-                    GoPosX : location.state.GoPosX,
-                    GoPosY : location.state.GoPosY,
-                    ArrivePosX : location.state.ArrivePosX,
-                    ArrivePosY : location.state.ArrivePosY,
-                    GoPosPlace : location.state.GoPosPlace,
-                    ArrivePosPlace : location.state.ArrivePosPlace
-                }})
-            } else{
-                alert("다시 입력하여 주십시오.")
-            }
-        }
-    }
-
-    function isToday(event: React.ChangeEvent<HTMLSelectElement>){
-        const target = event.target as HTMLSelectElement;
-        const option = target.options[target.selectedIndex] as HTMLOptionElement
-        const value = target.value;
+    function isToday(event: React.MouseEvent<HTMLInputElement, MouseEvent>){
+        const value = event.currentTarget.value;
         if(value === 'today'){
-            SetToDay("오늘");
-            SetIsNull(true);
+            SetToDay("today");
+            setDatefn(year,month,true);
         }else{
-            SetToDay("내일");
-            SetIsNull(false);
+            SetToDay("tomorrow");
+            setDatefn(year,month,false);
         }
     }
 
@@ -149,11 +173,11 @@ export default function TimeSet(){
                 <div className="select-date">
                     <div>날짜선택</div>
                     <div className="isToday">
-                        <input type="radio" name="is-today" value="today" checked/>오늘
-                        <input type="radio" name="is-today" value="tomorrow"/>내일 (24시이후)
+                        <input onClick={isToday} type="radio" name="is-today" value="today" checked={today == "today"? true : false}/>오늘
+                        <input onClick={isToday} type="radio" name="is-today" value="tomorrow" checked={today == "tomorrow"? true : false}/>내일
                     </div>
                     <div className="date">
-                        00월 00일 0요일
+                        {month}월 {date}일 {dayOfWeek}요일
                     </div>
                 </div>
                 <div className="select-time">
@@ -166,11 +190,9 @@ export default function TimeSet(){
                         <div>서포트 종료 시간 선택</div>
                         <input className="support-end" type="time"/>
                     </div>
+                    <div>*선택된 시간은 현재 시간보다 30분뒤여야 합니다.</div>
                 </div>
-                <div className="popup-selectTime">
-
-                </div>
-                <button className="next">다음</button>
+                <button onClick={nextBtn} className="next">다음</button>
             </div>
         </TimeSetStyle>
     );

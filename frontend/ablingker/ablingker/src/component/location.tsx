@@ -10,6 +10,10 @@ export default function Location(){
     const [isBus, setIsBus] = useState(false);
     const [isTaxi, setIsTaxi] = useState(false);
 
+    //출발지 도착지 변수
+    const [start, setStart] = useState("");
+    const [end, setEnd] = useState("");
+
     const navigate = useNavigate();
     
     function isOneWayfn(event:React.MouseEvent<HTMLInputElement, MouseEvent>){
@@ -53,7 +57,11 @@ export default function Location(){
         }else if(className.includes('end')){
             navigate('');
         }else if(className.includes('next')){
-            navigate('');
+            if(start != "" && end != ""){
+                navigate('/timeSet');
+            } else{
+                window.alert("출발지와 도착지를 확인해주세요.")
+            }
         }
     }   
 

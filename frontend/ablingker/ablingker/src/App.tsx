@@ -34,7 +34,7 @@ export default function App() {
           <Route path='client' element={<Client/>}></Route>
         </Routes>
         <Routes>
-          <Route path='timeSet' element={<TimeSet/>}></Route>
+          <Route path='settime' element={<TimeSet/>}></Route>
         </Routes>
         <Routes>
           <Route path='setlocation' element={<Location/>}></Route>
