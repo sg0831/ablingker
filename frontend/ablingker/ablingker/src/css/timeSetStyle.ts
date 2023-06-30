@@ -1,60 +1,154 @@
 import styled from 'styled-components';
 
 export const TimeSetStyle = styled.div`
-
-/* 전체 body 설정 */
-.container {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f2f2f2;
+/* main-container */
+.main-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-/* select 태그 스타일링 */
-.select-box {
-  margin-bottom: 1rem;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  border-radius: 0.5rem;
-  border: none;
-  box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
+/* top-nav 스타일*/
+.top-nav{
+    display: flex;
+    background-color: #d9d9d9;
+    position: absolute;
+    top:0;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    height: 45px;
 }
 
-/* 시간과 분을 감싸는 div 스타일링 */
-.time-box {
-  margin-bottom: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.25rem;
+.top-nav button{
+    position: absolute;
+    background-color: #d9d9d9;
+    border: none;
+    font-size: 30px;
+    left: 0;
+    margin-left: 5px;
 }
 
-/* input 태그 스타일링 */
-.input-box {
-  margin-left: 1rem;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  border-radius: 0.5rem;
-  border: none;
-  box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
+.top-nav div{
+    font-size: 25px;
 }
 
-.submit-button {
-  background-color: #4CAF50; /* 버튼 배경색 */
-  border: none; /* 버튼 테두리 없애기 */
-  color: white; /* 버튼 글자색 */
-  padding: 10px 20px; /* 버튼 안쪽 여백 */
-  text-align: center; /* 버튼 안쪽 텍스트 중앙 정렬 */
-  text-decoration: none; /* 버튼 텍스트 밑줄 없애기 */
-  display: inline-block; /* 버튼을 인라인 요소로 배치 */
-  font-size: 16px; /* 버튼 텍스트 크기 */
-  margin-top: 20px; /* 버튼 위 여백 */
+/* 날짜선택 스타일 */
+.select-date{
+    margin-top: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.isToday input{
+    width: 20px;
+    height: 20px;
+    margin-left: 30px;
+}
+
+.isToday{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.select-date div{
+    margin-bottom: 10%;
+}
+
+.select-date > :nth-child(1){
+    font-size: 20px;
+    font-weight: 550;
+}
+
+.date{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ededed;
+    border: 1px solid #a8a8a8;
+    border-radius: 5px 5px;
+    width: 300px;
+    height: 30px;
+}
+
+/* 시간선택 스타일 */
+.select-time{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.select-time > div{
+    margin-bottom: 10%;
+}
+
+.select-time > :nth-child(1){
+    font-size: 20px;
+    font-weight: 550;
+}
+
+.start-time{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.start-time > :nth-child(1){
+    font-size: 15px;
+    margin-bottom: 2%;
+}
+
+.support-start{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ededed;
+    border: 1px solid #a8a8a8;
+    border-radius: 5px 5px;
+    width: 300px;
+    height: 30px;
+    text-align: center;
+}
+
+.end-time{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.end-time > :nth-child(1){
+    font-size: 15px;
+    margin-bottom: 2%;
+}
+
+.support-end{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ededed;
+    border: 1px solid #a8a8a8;
+    border-radius: 5px 5px;
+    width: 300px;
+    height: 30px;
+    text-align: center;
+}
+
+/* 버튼 스타일 */
+.next{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    border: none;
+    font-size: 20px;
+    background-color: #d9d9d9;
 }
 
 
