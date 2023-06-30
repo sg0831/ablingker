@@ -15,9 +15,12 @@ import com.devsg0831.ablingker.repository.UserRepository;
 import com.devsg0831.ablingker.service.UserAuthenticationService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 	
 	private final UserRepository userRepository;
@@ -31,7 +34,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 			user.setLogin(true);
 			userRepository.save(user);
 		}
-		System.out.println("login success!  userId: " + user.getUserId());
+		log.info("login success!  userId: " + user.getUserId());
 		
 		response.setStatus(200);
 	}

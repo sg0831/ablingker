@@ -15,7 +15,9 @@ import com.devsg0831.ablingker.service.UserAuthenticationService;
 import com.devsg0831.ablingker.service.UserService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor 
@@ -29,6 +31,7 @@ public class UserController {
 	public ResponseEntity<String> createUser( @RequestBody SignUpParams signUpParams) {
 		User newUser = userService.createUser(signUpParams);
 		if (newUser != null) {
+			log.info("signUp userId: " + newUser.getUserId());
 			return new ResponseEntity<>( newUser.getUserId(), HttpStatus.CREATED );
 		}
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
