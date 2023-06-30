@@ -110,6 +110,7 @@
     border-radius: 5px 5px;
     width: 300px;
     height: 30px;
+    text-align: center;
 }
 
 .end-time{
@@ -133,6 +134,7 @@
     border-radius: 5px 5px;
     width: 300px;
     height: 30px;
+    text-align: center;
 }
 
 /* 버튼 스타일 */
