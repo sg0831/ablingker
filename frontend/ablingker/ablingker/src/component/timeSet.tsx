@@ -140,11 +140,15 @@ export default function TimeSet(){
         }
     }
 
+    function back(){
+        navigate(-1);
+    }
+
     return(
         <TimeSetStyle>
             <div className="main-container">
                 <div className="top-nav">
-                    <button>&lt;</button>
+                    <button onClick={back}>&lt;</button>
                     <div>시간설정</div>
                 </div>
                 <div className="select-date">
