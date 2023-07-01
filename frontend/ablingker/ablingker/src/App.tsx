@@ -14,6 +14,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import Client from './component/client';
+import SupportContent from './component/supportContent';
 
 export default function App() {
   return (
@@ -38,6 +39,9 @@ export default function App() {
         </Routes>
         <Routes>
           <Route path='setlocation' element={<Location/>}></Route>
+        </Routes>
+        <Routes>
+          <Route path='setsupcontent' element={<SupportContent/>}></Route>
         </Routes>
         <Routes>
           <Route path='helper' element={<Helper/>}></Route>
