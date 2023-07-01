@@ -46,7 +46,20 @@ export const TimeSetStyle = styled.div`
 .isToday input{
     width: 20px;
     height: 20px;
-    margin-left: 30px;
+}
+
+.isToday > :nth-child(1){
+    margin-right: 20px
+}
+
+.isToday > :nth-child(2){
+    margin-left: 20px
+}
+
+.isToday > div{
+    display:flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .isToday{

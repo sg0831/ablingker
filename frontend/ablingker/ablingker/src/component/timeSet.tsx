@@ -17,13 +17,35 @@ export default function TimeSet(){
     const navigate = useNavigate();
 
     function navigateFn(startTime:String, endTime:String){
-        window.alert(`입력하신 시간이 아래가 맞습니까?
+        const isRight = window.confirm(`입력하신 시간이 아래가 맞습니까?
         서포트 시작 시간:${startTime}
         서포트 종료 시간:${endTime}`)
-        navigate("",{state:{
+        if(isRight){
+            navigate("",{state:{
+    
+            }});
+        } else {
+            window.alert("취소되었습니다.")
+        }
 
-        }});
+    }
 
+    function endTimeIsBiggerThanStartTime(startTime:string, endTime:string){
+        //시 분으로 나누기
+        const [startHour, startMinute] = startTime.split(":");
+        const [endHour, endMinute] = endTime.split(":");
+
+        if(startHour === endHour){
+            if(parseInt(startMinute) < parseInt(endMinute)){
+                navigateFn(startTime,endTime)
+            } else{
+                window.alert("서포트 종료 시간은 서포트 시작시간보다 이후여야 합니다.")
+            }
+        } else if(parseInt(startHour) < parseInt(endHour)){
+            navigateFn(startTime,endTime)
+        } else if(parseInt(startHour) > parseInt(endHour)){
+            window.alert("서포트 종료 시간은 서포트 시작시간보다 이후여야 합니다.")
+        }
     }
 
     //다음 눌렀을때 변수
@@ -36,77 +58,32 @@ export default function TimeSet(){
 
         //시 분으로 나누기
         const [startHour, startMinute] = startTime.split(":");
-        const [endHour, endMinute] = startTime.split(":");
+        const [endHour, endMinute] = endTime.split(":");
 
-        if(startTime === "" || endTime === ""){
-            window.alert("서포트 시간을 다시 확인해주세요.")
-        }
-        //내일인 경우
-        else if(today === "tomorrow"){            
-            //서포트 종료 시간이 시작시간과 같은 경우
-            if(parseInt(startHour) === parseInt(endHour)){
-                //종료시간 분이 더 길때
-                if(parseInt(startMinute) < parseInt(endMinute)){
-                    navigateFn(startTime,endTime)
-                } else{
-                    window.alert("서포트 시작 시간보다 서포트 종료 시간이 더 이전입니다.") 
+        if(startTime != "" && endTime != ""){
+            if(today === "today"){
+                //30분보다 이후인지
+                if(parseInt(startHour) === new Date().getHours()){
+                    if(parseInt(startMinute) > new Date().getMinutes()+30){
+                        endTimeIsBiggerThanStartTime(startTime,endTime);
+                    } else{
+                        window.alert("서포트 시작 시간은 현재 시간보다 30분 많아야 합니다.")
+                    }
+                } else if (parseInt(startHour) > parseInt(endHour)){
+                    if(parseInt(startMinute) > (new Date().getMinutes()+30)%60){
+                        endTimeIsBiggerThanStartTime(startTime,endTime);
+                    } else {
+                        window.alert("서포트 시작 시간은 현재 시간보다 30분 많아야 합니다.")
+                    }
+                } else if (parseInt(startHour) < parseInt(endHour)){
+                    window.alert("서포트 시작 시간은 현재 시간보다 30분 많아야 합니다.")
                 }
+            } else{
+                //서포트 시작시간 < 서포트 종료 시간 인지 검사
+                endTimeIsBiggerThanStartTime(startTime,endTime);
             }
-            //시작시간보다 종료시간이 더 긴 경우
-            else if(parseInt(startHour) < parseInt(endHour)){
-                navigateFn(startTime,endTime)
-            }
-            //시작시간보다 종료시간이 더 짧은 경우
-            else{
-                window.alert("서포트 시작 시간보다 서포트 종료 시간이 더 이전입니다.");
-            } 
-        } 
-        //오늘인 경우
-        else if (today === "today"){
-            //서포트 시작시간이 같은 경우
-            if(new Date().getHours() === parseInt(startHour)){
-                //현재 시간보다 30분 더 많은지
-                if(new Date().getMinutes()+30 < parseInt(startHour)){
-                    navigateFn(startTime,endTime)
-                }
-                //현재 시간보다 30분 적을 시
-                else{
-                    window.alert("서포트 시작 시간이 현재 시간에서 부터 30분 이후여야 합니다.")
-                }
-            }
-            //시작시간이 더 큰 경우
-            else if(new Date().getHours() < parseInt(startHour)){
-                //현재 시간보다 30분 더 많은지
-                if((new Date().getMinutes()+30)%60 < parseInt(startHour)){
-                    navigateFn(startTime,endTime)
-                }
-                //현재 시간보다 30분 적을 시
-                else{
-                    window.alert("서포트 시작 시간이 현재 시간에서 부터 30분 이후여야 합니다.")
-                }
-            }
-            //시작시간이 더 작은 경우
-            else{
-               window.alert("서포트 시작 시간이 현재 시간보다 이전입니다.") 
-            }
-
-            //서포트 종료 시간이 시작시간과 같은 경우
-            if(parseInt(startHour) === parseInt(endHour)){
-                //종료시간 분이 더 길때
-                if(parseInt(startMinute) < parseInt(endMinute)){
-                    navigateFn(startTime,endTime)
-                } else{
-                    window.alert("서포트 시작 시간보다 서포트 종료 시간이 더 이전입니다.") 
-                }
-            }
-            //시작시간보다 종료시간이 더 긴 경우
-            else if(parseInt(startHour) < parseInt(endHour)){
-                navigateFn(startTime,endTime)
-            }
-            //시작시간보다 종료시간이 더 짧은 경우
-            else{
-                window.alert("서포트 시작 시간보다 서포트 종료 시간이 더 이전입니다.");
-            } 
+        } else{
+            window.alert("서포트 시작, 종료시간을 입력하여 주세요.")
         }
     }
 
@@ -173,8 +150,12 @@ export default function TimeSet(){
                 <div className="select-date">
                     <div>날짜선택</div>
                     <div className="isToday">
-                        <input onClick={isToday} type="radio" name="is-today" value="today" checked={today == "today"? true : false}/>오늘
-                        <input onClick={isToday} type="radio" name="is-today" value="tomorrow" checked={today == "tomorrow"? true : false}/>내일
+                        <div>
+                            <input onClick={isToday} type="radio" name="is-today" value="today" checked={today == "today"? true : false}/>오늘
+                        </div>
+                        <div>
+                            <input onClick={isToday} type="radio" name="is-today" value="tomorrow" checked={today == "tomorrow"? true : false}/>내일
+                        </div>
                     </div>
                     <div className="date">
                         {month}월 {date}일 {dayOfWeek}요일
