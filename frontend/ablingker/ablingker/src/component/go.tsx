@@ -208,11 +208,16 @@ const Map = (props: propsType) => {
           markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
           marker = new kakao.maps.Marker({
             position: position, // 마커의 위치
-            image: markerImage 
+            image: markerImage ,
+            clickable: true 
           });
 
       marker.setMap(map); // 지도 위에 마커를 표출
       markers.push(marker);  // 배열에 생성된 마커를 추가
+
+      kakao.maps.event.addListener(marker, 'click', function(){
+        window.alert("마커가 클릭되었습니다.");
+      })
 
       return marker;
     }
@@ -278,7 +283,7 @@ const Map = (props: propsType) => {
 
   return (
     <div className="map-container">
-      <div id="map" className="map" style={{width:"100vh",height:"50vw"}}></div>
+      <div id="map" className="map" style={{width:"800px",height:"500px"}}></div>
       <div id="search-result">
         <p className="result-text">
           <span className="result-keyword">

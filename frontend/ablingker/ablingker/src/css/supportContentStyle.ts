@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const SupportContent = styled.div`
+export const SupportContentStyle = styled.div`
 
 /* main-container */
 .main-container{
