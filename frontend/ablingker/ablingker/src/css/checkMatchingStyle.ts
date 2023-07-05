@@ -1,3 +1,8 @@
+
+import styled from 'styled-components';
+
+export const CheckMatchingStyle = styled.div`
+
 /* main-container */
 .main-container{
     display: flex;
@@ -30,7 +35,7 @@
 /* sup-content 스타일 */
 .sup-content{
     position: absolute;
-    bottom: 16%;
+    bottom: 19%;
     left: 4%;
     display: flex;
     flex-direction: column;
@@ -110,3 +115,5 @@
     font-size: 20px;
     background-color: #d9d9d9;
 }
+
+`;
