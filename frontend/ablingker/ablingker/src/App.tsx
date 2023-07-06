@@ -11,11 +11,12 @@ import Location from './component/location';
 import EmployerMatching from './component/employerMatching';
 import MatchingOk from './component/matchingOk';
 import CheckMatching from './component/checkMatching';
+import Client from './component/client';
+import SupportContent from './component/supportContent';
+import Test from './component/test';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import Client from './component/client';
-import SupportContent from './component/supportContent';
 
 export default function App() {
   return (
@@ -46,6 +47,9 @@ export default function App() {
         </Routes>
         <Routes>
           <Route path='checkmatching' element={<CheckMatching/>}></Route>
+        </Routes>
+        <Routes>
+          <Route path='test' element={<Test/>}></Route>
         </Routes>
         <Routes>
           <Route path='helper' element={<Helper/>}></Route>

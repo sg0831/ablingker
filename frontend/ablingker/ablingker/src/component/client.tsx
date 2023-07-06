@@ -9,7 +9,7 @@ export default function Client(){
     function pageMove(event:React.MouseEvent<HTMLDivElement | HTMLButtonElement ,MouseEvent>){
         const target = event.currentTarget;
         if(target.classList.contains('bottom-tap-item1')){
-            navigate('');
+            navigate('/client');
         } else if (target.classList.contains('bottom-tap-item2')){
             navigate('');
         } else if (target.classList.contains('bottom-tap-item3')){
