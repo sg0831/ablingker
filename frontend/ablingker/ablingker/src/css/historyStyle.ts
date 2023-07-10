@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const HelperStyle = styled.div`
+export const HistoryStyle = styled.div`
 
 /* 콘텐츠들 정렬 */
 .main-container {

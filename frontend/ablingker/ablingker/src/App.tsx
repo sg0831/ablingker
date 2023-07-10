@@ -14,6 +14,7 @@ import CheckMatching from './component/checkMatching';
 import Client from './component/client';
 import SupportContent from './component/supportContent';
 import Test from './component/test';
+import History from './component/history';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
@@ -47,6 +48,9 @@ export default function App() {
         </Routes>
         <Routes>
           <Route path='checkmatching' element={<CheckMatching/>}></Route>
+        </Routes>
+        <Routes>
+          <Route path='history' element={<History/>}></Route>
         </Routes>
         <Routes>
           <Route path='test' element={<Test/>}></Route>

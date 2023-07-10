@@ -13,7 +13,7 @@ export default function Client(){
         } else if (target.classList.contains('bottom-tap-item2')){
             navigate('');
         } else if (target.classList.contains('bottom-tap-item3')){
-            navigate('');
+            navigate('/history');
         } else if (target.classList.contains('bottom-tap-item4')){
             navigate('');
         } else if (target.classList.contains('bottom-tap-item5')){
