@@ -2,11 +2,13 @@ import { HistoryStyle } from "../css/historyStyle";
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useFetch from '../hooks/useFetch';
-import { useState , useEffect} from 'react';
+import React, { useState , useEffect} from 'react';
+import { useNavigate } from "react-router-dom";
 
 export default function History() {
     const [sort, setSort] = useState("recent-asc");
     const data = useFetch('서포터이름, 프로필, 번호, 별점 받아오는');
+    const navigate = useNavigate();
 
     //이제 sort 값 따라 정렬하는 코드를 만들어~ 보자!
     useEffect(()=>{
@@ -119,6 +121,26 @@ export default function History() {
         }
     }
 
+    //하단 바 클릭시 특정 페이지로 이동
+    function pageMove(event:React.MouseEvent<HTMLDivElement | HTMLButtonElement ,MouseEvent>){
+        const target = event.currentTarget;
+        if(target.classList.contains('bottom-tap-item1')){
+            navigate('/client');
+        } else if (target.classList.contains('bottom-tap-item2')){
+            navigate('');
+        } else if (target.classList.contains('bottom-tap-item3')){
+            navigate('/history');
+        } else if (target.classList.contains('bottom-tap-item4')){
+            navigate('');
+        } else if (target.classList.contains('bottom-tap-item5')){
+            navigate('');   
+        } else if (target.classList.contains('face-to-face')){
+            navigate('/setlocation');
+        } else if (target.classList.contains('non-face-to-face')){
+            window.alert('준비중입니다.')
+        }
+    }
+
     return (
 <HistoryStyle>
     <div className="main-container">
@@ -132,11 +154,11 @@ export default function History() {
         <div className="sup-content">
         </div>
         <div className="bottom-tap">
-            <div className="bottom-tap-item">매칭하기</div>
-            <div className="bottom-tap-item">매칭확인</div>
-            <div className="bottom-Ptap-item">히스토리</div>
-            <div className="bottom-tap-item">공지사항</div>
-            <div className="bottom-tap-item">내 정보</div>
+            <div onClick={pageMove} className="bottom-tap-item1">매칭하기</div>
+            <div onClick={pageMove} className="bottom-tap-item2">매칭확인</div>
+            <div onClick={pageMove} className="bottom-tap-item3">히스토리</div>
+            <div onClick={pageMove} className="bottom-tap-item4">공지사항</div>
+            <div onClick={pageMove} className="bottom-tap-item5">내 정보</div>
         </div>
     </div>
 </HistoryStyle>
