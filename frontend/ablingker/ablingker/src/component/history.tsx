@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function History() {
     const [sort, setSort] = useState("recent-asc");
+    const [review, setReview] = useState("");
     const data = useFetch('서포터이름, 프로필, 번호, 별점 받아오는');
     const navigate = useNavigate();
 
@@ -27,26 +28,95 @@ export default function History() {
                 } else if (sort === 'rating-des'){
                     userdata = mergeSort(data,false,false);
                 }
-                userdata.map(()=>{
-                    const supHis = `
-                    <div className="sup-history">
-                        <div className="top-content">
-                            <div className="profile"></div>
-                            <div className="sup-info">
-                                <div>${data.name}</div> {/* 서포터 이름 */}
-                                <div>${data.num}</div> {/* 서포터 번호 */}
+                userdata.map((data) => {
+                    const supHis = document.createElement("div");
+                    supHis.className = "sup-history";
+                    
+                    const handleClick = () => {
+                        const popup = document.createElement("div");
+                        popup.className = "popup";
+                
+                        const top = document.createElement("div");
+                        top.className = "top";
+                        popup.appendChild(top);
+                
+                        const pic = document.createElement("div");
+                        pic.className = "pic";
+                        top.appendChild(pic);
+                
+                        const sup = document.createElement("div");
+                        sup.className = "sup";
+                        top.appendChild(sup);
+                
+                        const name = document.createElement("div");
+                        name.className = "name";
+                        name.textContent = data.name; // 서포터 이름
+                        sup.appendChild(name);
+                
+                        const content = document.createElement("div");
+                        content.className = "content";
+                        content.textContent = "서포트 내용"; // 서포트 내용
+                        sup.appendChild(content);
+                
+                        const date = document.createElement("div");
+                        date.className = "date";
+                        date.textContent = "00-00-00"; // 날짜
+                        top.appendChild(date);
+                
+                        const rating = document.createElement("div");
+                        rating.className = "rating";
+                        popup.appendChild(rating);
+                
+                        for (let i = 0; i < data.rating; i++) {
+                            const star = document.createElement("i");
+                            star.className = "fa-solid fa-star";
+                            rating.appendChild(star);
+                        }
+                
+                        const inputContent = document.createElement("div");
+                        inputContent.className = "input-content";
+                        popup.appendChild(inputContent);
+                
+                        const textarea = document.createElement("textarea");
+                        textarea.placeholder = "리뷰를 작성해보세요!";
+                        textarea.cols = 30;
+                        textarea.rows = 5;
+                        inputContent.appendChild(textarea);
+                
+                        const button = document.createElement("button");
+                        button.textContent = "확인";
+                        popup.appendChild(button);
+                
+                        // 확인 버튼 클릭 이벤트 처리
+                        button.addEventListener("click", () => {
+                            setReview(textarea.value);
+                            supCon.removeChild(popup);
+                        });
+                        supCon.appendChild(popup);
+                
+                    };
+                
+                    supHis.addEventListener("click", handleClick);
+                
+                    supHis.innerHTML = `
+                        <div class="top-content">
+                            <div class="profile"></div>
+                            <div class="sup-info">
+                                <div>${data.name}</div> <!-- 서포터 이름 -->
+                                <div>${data.num}</div> <!-- 서포터 번호 -->
                             </div>
                         </div>
-                        <div className="sup-rating">
+                        <div class="sup-rating">
                             <FontAwesomeIcon icon={faStar} style={{color:'#ffe195', marginTop: '3px', fontSize: '17px'}} className="fa-solid fa-star" />
                             <FontAwesomeIcon icon={faStar} style={{color:'#ffe195', marginTop: '3px', fontSize: '17px'}} className="fa-solid fa-star" />
                             <FontAwesomeIcon icon={faStar} style={{color:'#ffe195', marginTop: '3px', fontSize: '17px'}} className="fa-solid fa-star" />
                             <FontAwesomeIcon icon={faStar} style={{color:'#ffe195', marginTop: '3px', fontSize: '17px'}} className="fa-solid fa-star" />
                             <FontAwesomeIcon icon={faStar} style={{color:'#ffe195', marginTop: '3px', fontSize: '17px'}} className="fa-solid fa-star" />
                         </div>
-                    </div>`
-                    supCon.insertAdjacentHTML("beforeend",supHis);
-                })
+                    `;
+                
+                    supCon.appendChild(supHis);
+                });
             } else{
                 supCon.innerHTML = "<div>아직 매칭을 하신적이 없습니다.</div>";
             }
