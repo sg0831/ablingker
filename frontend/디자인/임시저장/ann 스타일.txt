@@ -1,0 +1,16 @@
+ann 커뮤니티 스타일
+없어지면 좆된다
+
+            <div className="com">
+                <div className="com1">1. 커뮤니티 이용</div>
+                <div className="com1">2. 커뮤니티 이용</div>
+                <div className="com-page">
+                    <div className="left">
+                        <FontAwesomeIcon icon={faCaretLeft} style={{fontSize:"30px", color:"#808080"}}/>
+                    </div>
+                    <div className="middle">page 1</div>
+                    <div className="right">
+                        <FontAwesomeIcon icon={faCaretRight} style={{fontSize:"30px", color:"#808080"}}/>
+                    </div>
+                </div>
+            </div>

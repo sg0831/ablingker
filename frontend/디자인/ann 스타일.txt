@@ -1,0 +1,38 @@
+ann 커뮤니티 스타일
+**없어지면 좆된다**
+
+            <div className="com">
+                <div className="com1">1. 커뮤니티 이용</div>
+                <div className="com1">2. 커뮤니티 이용</div>
+                <div className="com-page">
+                    <div className="left">
+                        <FontAwesomeIcon icon={faCaretLeft} style={{fontSize:"30px", color:"#808080"}}/>
+                    </div>
+                    <div className="middle">page 1</div>
+                    <div className="right">
+                        <FontAwesomeIcon icon={faCaretRight} style={{fontSize:"30px", color:"#808080"}}/>
+                    </div>
+                </div>
+            </div>
+
+
+ann 공지사항 스타일
+**없어지면 좆된다**
+
+            <div className="com">
+                <div className="ann-1">
+                    <div>
+                        <div>공지사항</div>
+                        <div>공지사항 안내</div>
+                    </div>
+                    <FontAwesomeIcon icon={faAngleRight}/>
+                </div>
+                <div className="ann-1">
+                    <div>
+                        <div>이벤트</div>
+                        <div>이벤트 안내</div>
+                    </div>
+                    <FontAwesomeIcon icon={faAngleRight}/>
+                </div>
+                </div>
+            </div>

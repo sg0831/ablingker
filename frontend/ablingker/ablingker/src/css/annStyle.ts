@@ -1,3 +1,8 @@
+
+import styled from 'styled-components';
+
+export const AnnStyle = styled.div`
+
 /* 콘텐츠들 정렬 */
 .main-container {
     display: flex;
@@ -138,3 +143,5 @@
     font-size: 30px;
     color: #808080;
 }
+
+`;

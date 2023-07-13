@@ -15,7 +15,7 @@ export default function Client(){
         } else if (target.classList.contains('bottom-tap-item3')){
             navigate('/history');
         } else if (target.classList.contains('bottom-tap-item4')){
-            navigate('');
+            navigate('/ann');
         } else if (target.classList.contains('bottom-tap-item5')){
             navigate('');   
         } else if (target.classList.contains('face-to-face')){

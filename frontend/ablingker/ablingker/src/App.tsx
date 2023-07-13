@@ -18,6 +18,7 @@ import History from './component/history';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import Ann from './component/ann';
 
 export default function App() {
   return (
@@ -51,6 +52,9 @@ export default function App() {
         </Routes>
         <Routes>
           <Route path='history' element={<History/>}></Route>
+        </Routes>
+        <Routes>
+          <Route path='ann' element={<Ann/>}></Route>
         </Routes>
         <Routes>
           <Route path='test' element={<Test/>}></Route>
