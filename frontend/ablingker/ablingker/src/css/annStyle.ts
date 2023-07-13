@@ -17,7 +17,7 @@ export const AnnStyle = styled.div`
 
 /* ann-btn 스타일 */
 .ann-btn{
-    width: 106%;
+    width: 104%;
     display: flex;
     justify-content: space-between;
     align-items: center;

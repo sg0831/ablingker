@@ -6,46 +6,105 @@ import * as ReactDOM from 'react-dom/client';
 import { createRoot } from 'react-dom/client';
 import React, {useEffect} from 'react';
 import { useNavigate } from "react-router-dom";
+import useFetch from "../hooks/useFetch";
+
+interface Ann1DivProps{
+    title: string;
+    des: string;
+    move?: string;
+}
+
+interface ComPageProps{
+    content: string;
+}
 
 export default function Ann(){
-    var ReactDOM = require("react-dom/client")
     const [whatClick, setWhatClick] = useState("annTitle");
 
     const navigate = useNavigate();
 
+    //공지사항 컴포넌트
+    const Ann1Div = (props:Ann1DivProps) => {
+        const {title, des, move = "/"} = props;
+
+        return (
+          <>
+              <div onClick={()=>{navigate(move)}} className="ann-1">
+                  <div>
+                      <div>{title}</div>
+                      <div>{des}</div>
+                  </div>
+                  <FontAwesomeIcon icon={faAngleRight} />
+              </div>
+          </>
+        );
+      };
+
+    //커뮤니티 컴포넌트
+    const ComPage = (props:ComPageProps) => {
+        const {content} = props
+        return(
+            <>
+                <div className="com1">{content}</div>
+            </>
+        )
+    }
+
+    //공지사항 & 커뮤니티 데이터
+    const annData = useFetch('');
+    const comData = useFetch('');
+
     //렌더링 하기
     useEffect(()=>{
+        const com = document.getElementsByClassName('com')[0];
         if(whatClick === 'annTitle'){
-            const com = document.getElementsByClassName('com')[0];
-    
-            setWhatClick('annTitle');
-    
+            com.innerHTML = '';
+
+            const root = ReactDOM.createRoot(com);
+            root.render(
+                <>
+                    <Ann1Div title ="공지사항" des="공지사항 안내"/>
+                    <Ann1Div title ="이벤트" des="이벤트 안내"/>
+                </>
+            );
+
+
+        } else if(whatClick === 'faqTitle'){
+            com.innerHTML = '';
+
+            const root = ReactDOM.createRoot(com);
+            root.render(
+                <>
+                    <Ann1Div title ="FAQ" des="서포터 매칭하는 방법"/>
+                    <Ann1Div title ="이벤트" des="포인트 교환 방법"/>
+                </>
+            );
+
+
+        } else if(whatClick === 'comTitle'){
             com.innerHTML = '';
             
-            const ann1 = document.createElement("div");
-            ann1.className = "ann-1";
-            
-            const Ann1Div = () => {
-              return (
-                <div>
-                  <div>공지사항</div>
-                  <div>공지사항 안내</div>
-                </div>
-              );
-            };
-            
-            const root = ReactDOM.createRoot(ann1);
+
+            const root = ReactDOM.createRoot(com);
             root.render(
-              <React.Fragment>
-                <Ann1Div />
-                <FontAwesomeIcon icon={faAngleRight} />
-              </React.Fragment>
-            );
-            com.appendChild(ann1);
+                <>
+                    <ComPage content="1. 커뮤니티 이용"/>
+                    <ComPage content="2. 커뮤니티 이용"/>
+                    <div className="com-page">
+                        <div className="left">
+                            <FontAwesomeIcon icon={faCaretLeft} style={{fontSize:"30px", color:"#808080"}}/>
+                        </div>
+                        <div className="middle">page 1</div>
+                        <div className="right">
+                            <FontAwesomeIcon icon={faCaretRight} style={{fontSize:"30px", color:"#808080"}}/>
+                        </div>
+                    </div>
+                </>
+            )
         }
     },[whatClick])
 
-    //무엇이 클릭되었는지 확인
+    //공지사항, 커뮤니티, FAQ
     function whatClickFn(event:React.MouseEvent<HTMLButtonElement, MouseEvent>){
         const target = event.currentTarget;
         const com = document.getElementsByClassName('com')[0];
@@ -59,7 +118,7 @@ export default function Ann(){
         }
     }
 
-    //하단 바 클릭시 특정 페이지로 이동
+    //하단 바 이벤트
     function pageMove(event:React.MouseEvent<HTMLDivElement | HTMLButtonElement ,MouseEvent>){
         const target = event.currentTarget;
         if(target.classList.contains('bottom-tap-item1')){
@@ -72,10 +131,6 @@ export default function Ann(){
             navigate('/ann');
         } else if (target.classList.contains('bottom-tap-item5')){
             navigate('');   
-        } else if (target.classList.contains('face-to-face')){
-            navigate('/setlocation');
-        } else if (target.classList.contains('non-face-to-face')){
-            window.alert('준비중입니다.')
         }
     }
     
